@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #E50914;
+  }
+
+  ::selection {
+    background: rgba(229, 9, 20, 0.4);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .drag-region {
+    -webkit-app-region: drag;
+    app-region: drag;
+  }
+
+  .no-drag {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+  }
+
+  /* Netflix Frosted Glass & Surface Panels */
+  .glass-card {
+    background: rgba(24, 24, 24, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .glass-card-glow {
+    background: rgba(26, 20, 20, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(229, 9, 20, 0.4);
+    box-shadow: 0 0 30px rgba(229, 9, 20, 0.16), 0 10px 35px -5px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Netflix Ambient Lighting Haze */
+  .ambient-glow-crimson {
+    position: absolute;
+    top: -150px;
+    right: 15%;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(229, 9, 20, 0.09) 0%, rgba(229, 9, 20, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ambient-glow-dark {
+    position: absolute;
+    bottom: -180px;
+    left: 10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(184, 29, 36, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .font-display {
+    font-family: 'Bebas Neue', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: 0.06em;
+  }
+}

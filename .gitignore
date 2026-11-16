@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build & Distribution Artifacts
+out/
+dist/
+build/
+release/
+
+# SQLite Databases & Journals
+*.db
+*.db-wal
+*.db-shm
+
+# Environment & Local Secrets
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Editor & OS Artifacts
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
