@@ -61,10 +61,7 @@ export default function Diagnostics() {
       {(running || report) && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Activity size={16} className="text-accent" />
-              <CardTitle>Test Results</CardTitle>
-            </div>
+            <CardTitle>Test Results</CardTitle>
             {report && (
               <div className="flex items-center gap-3">
                 <span className="text-xs text-surface-500">
@@ -81,13 +78,13 @@ export default function Diagnostics() {
                 {['Default Gateway Ping', 'DNS Resolution Integrity', 'External IP Reachability', 'Secure HTTPS Web Handshake', 'Packet Loss & Jitter', 'Captive Portal Detection'].map((name, i) => (
                   <div key={i} className="flex items-center justify-between py-3 px-4 rounded-lg bg-surface-950/40 border border-white/[0.02]">
                     <div className="flex items-center gap-3">
-                      <div className="h-2 w-2 rounded-full bg-accent animate-ping" />
+                      <div className="h-2 w-2 rounded-full bg-surface-600" />
                       <div className="space-y-1">
                         <p className="text-sm font-medium text-white">{name}</p>
                         <Skeleton className="h-2.5 w-48" />
                       </div>
                     </div>
-                    <Skeleton className="h-4 w-16 rounded-full" />
+                    <Skeleton className="h-4 w-16 rounded" />
                   </div>
                 ))}
               </div>
@@ -154,10 +151,7 @@ export default function Diagnostics() {
       {diagnoses.length > 0 && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Info size={16} className="text-blue-400" />
-              <CardTitle>Analysis</CardTitle>
-            </div>
+            <CardTitle>Analysis &amp; Recommendations</CardTitle>
           </CardHeader>
           <div className="space-y-3">
             {diagnoses.map((d) => {
@@ -189,8 +183,8 @@ export default function Diagnostics() {
       {/* Empty State */}
       {!running && !report && (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <div className="h-16 w-16 rounded-2xl bg-accent/5 border border-accent/10 flex items-center justify-center mb-4">
-            <Activity size={28} className="text-accent/50" />
+          <div className="h-14 w-14 rounded-xl bg-surface-900 border border-white/[0.06] flex items-center justify-center mb-4 text-surface-400">
+            <Activity size={24} />
           </div>
           <h2 className="text-lg font-semibold text-surface-300 mb-1">Ready to Diagnose</h2>
           <p className="text-sm text-surface-500 max-w-md">

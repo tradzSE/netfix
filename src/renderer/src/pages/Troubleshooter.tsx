@@ -45,8 +45,8 @@ export default function Troubleshooter({ onNavigate }: TroubleshooterProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-white tracking-tight">Intelligent Troubleshooting Engine</h1>
-          <p className="text-sm text-surface-500 mt-0.5">Correlational multi-test analysis, root-cause diagnosis &amp; recommended repairs</p>
+          <h1 className="text-xl font-bold text-white tracking-tight">Network Troubleshooter</h1>
+          <p className="text-sm text-surface-500 mt-0.5">Automated diagnosis and recommended repairs</p>
         </div>
         <div className="flex items-center gap-2">
           <Button size="sm" onClick={runDiagnostics} loading={running}>
@@ -65,26 +65,21 @@ export default function Troubleshooter({ onNavigate }: TroubleshooterProps) {
         <Card padding="md">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div
-                className={cn(
-                  'h-10 w-10 rounded-lg flex items-center justify-center',
-                  criticalCount > 0 ? 'bg-red-500/10 text-red-400' :
-                  warningCount > 0 ? 'bg-amber-500/10 text-amber-400' :
-                  'bg-emerald-500/10 text-emerald-400'
-                )}
-              >
-                {criticalCount > 0 ? <XCircle size={22} /> :
-                 warningCount > 0 ? <AlertTriangle size={22} /> :
-                 <CheckCircle2 size={22} />}
-              </div>
+              {criticalCount > 0 ? (
+                <XCircle size={20} className="text-red-400 flex-shrink-0" />
+              ) : warningCount > 0 ? (
+                <AlertTriangle size={20} className="text-amber-400 flex-shrink-0" />
+              ) : (
+                <CheckCircle2 size={20} className="text-emerald-400 flex-shrink-0" />
+              )}
               <div>
-                <h3 className="text-sm font-bold text-white">
+                <h3 className="text-sm font-semibold text-white">
                   {criticalCount > 0 ? `${criticalCount} Critical Issue(s) Identified` :
                    warningCount > 0 ? `${warningCount} Potential Warning(s) Detected` :
                    'Network Stack & Connectivity Healthy'}
                 </h3>
                 <p className="text-xs text-surface-400 mt-0.5">
-                  Correlation rules evaluated across Gateway, DNS, IP routing, HTTPS, packet loss, and captive portal tests.
+                  Evaluated across Gateway, DNS, IP routing, HTTPS, packet loss, and captive portal checks.
                 </p>
               </div>
             </div>

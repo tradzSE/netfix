@@ -138,7 +138,7 @@ export default function DiagnosticHistory() {
                   <div key={i} className="p-3.5 rounded-lg border border-white/[0.04] bg-surface-900/60 space-y-2">
                     <div className="flex items-center justify-between">
                       <Skeleton className="h-3.5 w-20" />
-                      <Skeleton className="h-4 w-12 rounded-full" />
+                      <Skeleton className="h-4 w-12 rounded" />
                     </div>
                     <Skeleton className="h-2.5 w-28" />
                   </div>
@@ -251,10 +251,7 @@ export default function DiagnosticHistory() {
       {activeTab === 'repairs' && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Wrench size={16} className="text-accent" />
-              <CardTitle>Network Repair Audit Trail</CardTitle>
-            </div>
+            <CardTitle>Network Repair Audit Trail</CardTitle>
           </CardHeader>
 
           <div className="overflow-x-auto">
@@ -283,7 +280,7 @@ export default function DiagnosticHistory() {
                     <td className="py-2.5 px-3">
                       <span
                         className={cn(
-                          'text-[10px] font-semibold px-2 py-0.5 rounded-full',
+                          'text-[11px] font-medium px-2 py-0.5 rounded',
                           r.verified ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
                         )}
                       >

@@ -25,10 +25,10 @@ export default function TitleBar({ onReplayIntro }: TitleBarProps) {
         {onReplayIntro && (
           <button
             onClick={onReplayIntro}
-            className="no-drag ml-2 flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-surface-400 hover:text-white bg-white/[0.04] hover:bg-[#E50914]/20 hover:border-[#E50914]/40 border border-white/[0.06] transition-all"
-            title="Replay Cinematic Welcome Intro"
+            className="no-drag ml-2 flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium text-surface-400 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] transition-colors"
+            title="Replay Welcome Intro"
           >
-            <Play size={9} className="text-[#E50914] fill-[#E50914]" />
+            <Play size={9} className="text-surface-400 fill-surface-400" />
             <span>Intro</span>
           </button>
         )}

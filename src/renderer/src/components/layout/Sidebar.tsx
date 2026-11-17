@@ -105,7 +105,6 @@ export default function Sidebar({ activePage, onNavigate }: SidebarProps) {
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">
             <span className="text-sm font-black text-white tracking-widest uppercase font-display">NETFIX</span>
-            <span className="text-[9px] font-mono text-[#E50914] bg-[#E50914]/15 px-1.5 py-0.2 rounded font-bold border border-[#E50914]/30">PRO</span>
           </div>
           <span className="text-[10px] text-surface-400 font-medium tracking-tight">Diagnostics &amp; Repair</span>
         </div>
@@ -130,11 +129,11 @@ export default function Sidebar({ activePage, onNavigate }: SidebarProps) {
                     className={cn(
                       'w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-all duration-150 text-left',
                       isActive
-                        ? 'bg-[#E50914]/15 text-[#E50914] font-bold border border-[#E50914]/35 shadow-sm shadow-[#E50914]/15'
-                        : 'text-surface-400 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium'
+                        ? 'bg-white/[0.08] text-white font-semibold border border-white/[0.08]'
+                        : 'text-surface-400 hover:text-white hover:bg-white/[0.03] border border-transparent font-medium'
                     )}
                   >
-                    <Icon size={15} strokeWidth={isActive ? 2.4 : 1.7} className={cn(isActive ? 'text-[#E50914]' : 'text-surface-400')} />
+                    <Icon size={15} strokeWidth={isActive ? 2 : 1.7} className={cn(isActive ? 'text-white' : 'text-surface-400')} />
                     <span>{item.label}</span>
                   </button>
                 )
@@ -144,24 +143,21 @@ export default function Sidebar({ activePage, onNavigate }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Connected Live Glass Status Card */}
+      {/* Connected Status Card */}
       <div className="p-3 border-t border-white/[0.05]">
-        <div className="glass-card rounded-xl p-3 border border-[#E50914]/20 bg-[#E50914]/[0.03] shadow-md shadow-[#E50914]/5">
+        <div className="rounded-lg p-3 border border-white/[0.06] bg-surface-900/50">
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E50914]"></span>
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-white">Live Link</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-surface-400">Connection</span>
             </div>
-            <span className="text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded bg-surface-800 text-surface-300">
+            <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-surface-800 text-surface-300">
               {activeConn?.type || 'Online'}
             </span>
           </div>
 
           <div className="space-y-0.5">
-            <p className="text-xs font-bold text-white truncate">
+            <p className="text-xs font-semibold text-white truncate">
               {activeConn?.name || 'Searching...'}
             </p>
             <p className="text-[10px] font-mono text-surface-400">

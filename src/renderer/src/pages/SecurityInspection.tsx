@@ -241,10 +241,7 @@ export default function SecurityInspection() {
       {data && data.risks.length > 0 && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Lock size={16} className="text-accent" />
-              <CardTitle>Findings &amp; Recommendations</CardTitle>
-            </div>
+            <CardTitle>Findings &amp; Recommendations</CardTitle>
           </CardHeader>
 
           <div className="space-y-3">
@@ -352,10 +349,7 @@ export default function SecurityInspection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Shield size={16} className="text-blue-400" />
-                <CardTitle>Windows Firewall Profiles</CardTitle>
-              </div>
+              <CardTitle>Windows Firewall Profiles</CardTitle>
             </CardHeader>
             <div className="space-y-3">
               {data.firewallProfiles.map((prof) => (
@@ -371,7 +365,7 @@ export default function SecurityInspection() {
                   </div>
                   <span
                     className={cn(
-                      'text-[10px] font-semibold px-2 py-0.5 rounded-full',
+                      'text-[11px] font-medium px-2 py-0.5 rounded',
                       prof.enabled ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'
                     )}
                   >
@@ -384,10 +378,7 @@ export default function SecurityInspection() {
 
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Globe size={16} className="text-purple-400" />
-                <CardTitle>System Proxy Configuration</CardTitle>
-              </div>
+              <CardTitle>System Proxy Configuration</CardTitle>
             </CardHeader>
             <div className="space-y-3">
               <div className="p-3 rounded-lg bg-surface-950/60 border border-white/[0.03]">
@@ -395,7 +386,7 @@ export default function SecurityInspection() {
                   <span className="text-xs font-semibold text-white">Proxy Status</span>
                   <span
                     className={cn(
-                      'text-[10px] font-semibold px-2 py-0.5 rounded-full',
+                      'text-[11px] font-medium px-2 py-0.5 rounded',
                       data.proxy.enabled ? 'bg-amber-500/10 text-amber-400' : 'bg-emerald-500/10 text-emerald-400'
                     )}
                   >
@@ -422,10 +413,7 @@ export default function SecurityInspection() {
       {data && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Server size={16} className="text-accent" />
-              <CardTitle>Open Listening Ports &amp; Process Mapping ({data.listeningPorts.length} detected)</CardTitle>
-            </div>
+            <CardTitle>Open Listening Ports &amp; Process Mapping ({data.listeningPorts.length} detected)</CardTitle>
           </CardHeader>
 
           <div className="overflow-x-auto max-h-80">

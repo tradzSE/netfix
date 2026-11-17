@@ -25,23 +25,22 @@ const LABELS: Record<string, string> = {
   Disconnected: 'Disconnected', Disabled: 'Disabled',
 }
 
-export default function StatusBadge({ status, size = 'sm', pulse }: StatusBadgeProps) {
+export default function StatusBadge({ status, size = 'sm' }: StatusBadgeProps) {
   const styles = STATUS_STYLES[status] ?? STATUS_STYLES['pending']
   const label = LABELS[status] ?? status
 
   return (
     <span className={cn(
-      'inline-flex items-center gap-1.5 rounded-full font-medium',
+      'inline-flex items-center gap-1.5 rounded font-medium',
       styles.bg, styles.text,
       size === 'sm' && 'px-2 py-0.5 text-xs',
-      size === 'md' && 'px-3 py-1 text-sm'
+      size === 'md' && 'px-2.5 py-1 text-xs'
     )}>
       <span className={cn(
         'rounded-full',
         styles.dot,
         size === 'sm' && 'h-1.5 w-1.5',
-        size === 'md' && 'h-2 w-2',
-        pulse && 'animate-pulse'
+        size === 'md' && 'h-2 w-2'
       )} />
       {label}
     </span>

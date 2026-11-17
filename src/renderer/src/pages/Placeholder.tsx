@@ -27,7 +27,7 @@ export default function Placeholder({ pageId }: PlaceholderProps) {
       <p className="text-sm text-surface-500">
         This module is planned for a future release.
       </p>
-      <span className="mt-3 px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-surface-600 border border-white/[0.04] rounded-full">
+      <span className="mt-3 px-2.5 py-0.5 text-xs font-medium text-surface-500 border border-white/[0.06] rounded bg-surface-900/40">
         Coming in Phase 2
       </span>
     </div>

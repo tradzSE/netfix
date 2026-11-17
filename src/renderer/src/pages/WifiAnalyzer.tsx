@@ -149,32 +149,22 @@ export default function WifiAnalyzer() {
       {/* Recommended Channels Banner */}
       {data && (
         <div className="grid grid-cols-2 gap-4">
-          <Card padding="md" className="border-accent/20 bg-accent/[0.03]">
-            <div className="flex items-start justify-between">
-              <div>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">Recommended 2.4 GHz Channel</span>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-2xl font-bold text-white">Channel {data.best24GhzChannel}</span>
-                  <span className="text-xs text-surface-400">Non-overlapping, lowest interference</span>
-                </div>
-              </div>
-              <div className="h-9 w-9 rounded-lg bg-accent/10 flex items-center justify-center text-accent">
-                <CheckCircle size={18} />
+          <Card padding="md">
+            <div>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-surface-400">Recommended 2.4 GHz Channel</span>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-xl font-bold text-white">Channel {data.best24GhzChannel}</span>
+                <span className="text-xs text-surface-400">Non-overlapping, lowest interference</span>
               </div>
             </div>
           </Card>
 
-          <Card padding="md" className="border-blue-500/20 bg-blue-500/[0.03]">
-            <div className="flex items-start justify-between">
-              <div>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-400">Recommended 5 GHz Channel</span>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-2xl font-bold text-white">Channel {data.best5GhzChannel}</span>
-                  <span className="text-xs text-surface-400">Clean spectrum, high throughput</span>
-                </div>
-              </div>
-              <div className="h-9 w-9 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-                <Radio size={18} />
+          <Card padding="md">
+            <div>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-surface-400">Recommended 5 GHz Channel</span>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-xl font-bold text-white">Channel {data.best5GhzChannel}</span>
+                <span className="text-xs text-surface-400">Clean spectrum, high throughput</span>
               </div>
             </div>
           </Card>
@@ -185,10 +175,7 @@ export default function WifiAnalyzer() {
       {data && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-3">
-              <Radio size={16} className="text-accent" />
-              <CardTitle>Channel Congestion & Spectrum</CardTitle>
-            </div>
+            <CardTitle>Channel Congestion &amp; Spectrum</CardTitle>
             <div className="flex items-center rounded-lg bg-surface-950 p-0.5 border border-white/[0.05]">
               <button
                 onClick={() => setActiveBand('2.4 GHz')}
@@ -271,10 +258,7 @@ export default function WifiAnalyzer() {
       {data && (
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Wifi size={16} className="text-blue-400" />
-              <CardTitle>Discovered Networks ({data.networks.length} SSIDs, {data.totalAPs} APs)</CardTitle>
-            </div>
+            <CardTitle>Discovered Networks ({data.networks.length} SSIDs, {data.totalAPs} APs)</CardTitle>
             <input
               type="text"
               placeholder="Filter by SSID or BSSID..."

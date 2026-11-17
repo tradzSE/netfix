@@ -13,10 +13,6 @@ interface AppLayoutProps {
 export default function AppLayout({ children, activePage, onNavigate, onReplayIntro }: AppLayoutProps) {
   return (
     <div className="h-screen w-screen flex flex-col bg-[#0b0b0b] text-surface-100 overflow-hidden relative select-none">
-      {/* Netflix Cinematic Ambient Lighting Haze */}
-      <div className="ambient-glow-crimson" />
-      <div className="ambient-glow-dark" />
-
       {/* Custom Title Bar */}
       <TitleBar onReplayIntro={onReplayIntro} />
 

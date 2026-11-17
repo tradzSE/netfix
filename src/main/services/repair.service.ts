@@ -43,12 +43,12 @@ export const REPAIR_OPERATIONS: RepairOperationDefinition[] = [
   },
   {
     id: 'renew-dhcp',
-    name: 'Renew DHCP Lease',
-    description: 'Releases current IP lease and requests a fresh IP configuration from the router.',
-    isElevated: true,
+    name: 'Release & Renew DHCP Lease',
+    description: 'Releases current IP lease and requests a fresh IP configuration from the network (resolves "Connected, no internet" at school or public Wi-Fi).',
+    isElevated: false,
     isDisruptive: true,
     requiresAdapter: false,
-    warningText: 'Your network connection will drop momentarily while renewing the lease.'
+    warningText: 'Your network connection will drop momentarily while releasing and renewing the lease.'
   },
   {
     id: 'restart-adapter',
@@ -255,9 +255,57 @@ async function verifyRepairAction(actionId: RepairActionId, params: ExecuteRepai
       }
     }
 
-    case 'renew-dhcp':
+    case 'renew-dhcp': {
+      // Allow adapter to negotiate and receive DHCP offer
+      await new Promise(r => setTimeout(r, 3500))
+
+      // Check if adapter acquired a valid IPv4 address and default gateway
+      const ipRes = await executePowerShell('get-ip-config')
+      let hasValidIp = false
+      let ipAddress = ''
+
+      if (ipRes.success) {
+        try {
+          const parsed = JSON.parse(ipRes.stdout)
+          const configs = Array.isArray(parsed) ? parsed : [parsed]
+          const active = configs.find((c: any) => c.IPv4Address && !c.IPv4Address.startsWith('169.254.') && c.IPv4Address !== '0.0.0.0')
+          if (active) {
+            hasValidIp = true
+            ipAddress = active.IPv4Address
+          }
+        } catch {
+          if (ipRes.stdout.includes('IPv4Address') && !ipRes.stdout.includes('169.254.')) {
+            hasValidIp = true
+          }
+        }
+      }
+
+      // Check gateway ping
+      const pingRes = await executePowerShell('ping-gateway')
+      const pingOk = pingRes.success && pingRes.stdout.includes('"Success":true')
+
+      if (pingOk) {
+        return {
+          verified: true,
+          notes: `DHCP lease active (${ipAddress || 'assigned IP'}). Gateway is responsive.`
+        }
+      }
+
+      if (hasValidIp) {
+        return {
+          verified: true,
+          notes: `DHCP IP lease acquired (${ipAddress}). If internet is still blocked, open your browser to complete your school/campus login page.`
+        }
+      }
+
+      return {
+        verified: false,
+        notes: 'DHCP lease requested, but no valid IP address was assigned by the network DHCP server.'
+      }
+    }
+
     case 'restart-adapter': {
-      // Allow 3 seconds for adapter/DHCP binding
+      // Allow 3.5 seconds for adapter to initialize
       await new Promise(r => setTimeout(r, 3500))
       const res = await executePowerShell('ping-gateway')
       if (res.success && res.stdout.includes('"Success":true')) {
@@ -355,10 +403,42 @@ export async function executeRepair(params: ExecuteRepairParams): Promise<Repair
       }
 
       case 'renew-dhcp': {
-        const res = await runElevatedScript('ipconfig /renew')
-        success = res.success
-        output = res.output
-        errorMessage = res.error
+        // Run unprivileged ipconfig /release followed by ipconfig /renew
+        // Neither command requires administrator privileges on Windows.
+        const target = safeAdapter ? `"${safeAdapter}"` : ''
+
+        const runIpconfig = (args: string[]): Promise<{ code: number; stdout: string; stderr: string }> => {
+          return new Promise((resolve) => {
+            execFile('ipconfig.exe', args, { windowsHide: true, timeout: 35_000 }, (err, stdout, stderr) => {
+              const code = err && typeof (err as any).code === 'number' ? (err as any).code : (err ? 1 : 0)
+              resolve({ code, stdout: stdout || '', stderr: stderr || '' })
+            })
+          })
+        }
+
+        // 1. Release existing lease (clears stale school/home IP)
+        const relArgs = target ? ['/release', target] : ['/release']
+        const relRes = await runIpconfig(relArgs)
+
+        // 2. Pause to allow interface sockets and adapter to reset
+        await new Promise(r => setTimeout(r, 1200))
+
+        // 3. Request fresh lease from DHCP
+        const renArgs = target ? ['/renew', target] : ['/renew']
+        const renRes = await runIpconfig(renArgs)
+
+        const lowerOutput = renRes.stdout.toLowerCase()
+        if (lowerOutput.includes('ipv4 address') || lowerOutput.includes('windows ip configuration') || renRes.code === 0) {
+          success = true
+          output = renRes.stdout.trim() || 'DHCP lease released and renewed successfully.'
+        } else {
+          // If unprivileged run had an issue, attempt elevated fallback
+          const script = target ? `ipconfig /release ${target}; Start-Sleep -Seconds 1; ipconfig /renew ${target}` : `ipconfig /release; Start-Sleep -Seconds 1; ipconfig /renew`
+          const elevatedRes = await runElevatedScript(script)
+          success = elevatedRes.success
+          output = elevatedRes.output || relRes.stdout
+          errorMessage = elevatedRes.error
+        }
         break
       }
 

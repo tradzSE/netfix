@@ -415,10 +415,7 @@ export default function PerformanceMonitor() {
           {/* Real-Time Latency Graph */}
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Activity size={16} className="text-accent" />
-                <CardTitle>Live Latency Timeline (Rolling 60s)</CardTitle>
-              </div>
+              <CardTitle>Live Latency Timeline (Rolling 60s)</CardTitle>
               <div className="flex items-center gap-4 text-xs">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-accent" />
@@ -501,10 +498,7 @@ export default function PerformanceMonitor() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Navigation size={16} className="text-accent" />
-                <CardTitle>Visual Hop-by-Hop Route Tracer (MTR)</CardTitle>
-              </div>
+              <CardTitle>Hop-by-Hop Route Tracer (MTR)</CardTitle>
             </CardHeader>
 
             <div className="flex items-center gap-3 mb-4">
@@ -543,10 +537,7 @@ export default function PerformanceMonitor() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-2">
-                    <Activity size={15} className="text-accent" />
-                    <CardTitle>Route Map to {traceResult.target} ({traceResult.totalHops} hops)</CardTitle>
-                  </div>
+                  <CardTitle>Route Map to {traceResult.target} ({traceResult.totalHops} hops)</CardTitle>
                   <span className="text-xs text-surface-400 font-mono">
                     {traceResult.completed ? 'Trace Complete' : 'Tracing...'}
                   </span>
@@ -557,7 +548,7 @@ export default function PerformanceMonitor() {
               <div className="p-4 bg-surface-950/70 rounded-xl border border-white/[0.03] overflow-x-auto">
                 <div className="flex items-center gap-3 min-w-max py-2">
                   <div className="flex flex-col items-center">
-                    <div className="h-10 w-10 rounded-xl bg-accent/20 border border-accent/40 flex items-center justify-center text-accent text-xs font-bold shadow-sm shadow-accent/15">
+                    <div className="h-10 w-10 rounded-lg bg-surface-800 border border-white/[0.08] flex items-center justify-center text-white text-xs font-semibold">
                       PC
                     </div>
                     <span className="text-[10px] text-surface-400 mt-1 font-mono">Laptop</span>
@@ -641,12 +632,12 @@ export default function PerformanceMonitor() {
                         </td>
                         <td className="py-2 text-right pr-1">
                           <span className={cn(
-                            'text-[10px] font-semibold px-2 py-0.5 rounded-full',
+                            'text-[11px] font-medium px-2 py-0.5 rounded',
                             hop.status === 'ok'
-                              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                              ? 'bg-emerald-500/10 text-emerald-400'
                               : hop.status === 'high_latency'
-                              ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                              : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                              ? 'bg-amber-500/10 text-amber-400'
+                              : 'bg-red-500/10 text-red-400'
                           )}>
                             {hop.status === 'ok' ? 'OK' : hop.status === 'high_latency' ? 'High Latency' : 'Timed Out'}
                           </span>
@@ -667,10 +658,7 @@ export default function PerformanceMonitor() {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between w-full">
-                <div className="flex items-center gap-2">
-                  <Cpu size={16} className="text-accent" />
-                  <CardTitle>Active Network Apps &amp; Socket Activity ({connResult?.totalConnections ?? 0} active sockets)</CardTitle>
-                </div>
+                <CardTitle>Active Network Apps &amp; Sockets ({connResult?.totalConnections ?? 0} active sockets)</CardTitle>
                 <Button variant="secondary" size="sm" onClick={fetchConnections} loading={connLoading}>
                   <RefreshCw size={13} />
                   Refresh Apps

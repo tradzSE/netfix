@@ -42,7 +42,7 @@ export function analyzeDiagnostics(results: TestResultMap): Diagnosis[] {
         title: 'No Default Gateway Configured',
         severity: 'critical',
         explanation: 'Your network adapter does not have a default gateway configured. This means your computer cannot route traffic to the internet.',
-        recommendation: 'Check if your network cable is connected or if Wi-Fi is connected to a network. Try running "Renew DHCP Lease" in the Repair Center.',
+        recommendation: 'Check if your network cable is connected or if Wi-Fi is connected to a network. Try running "Release & Renew DHCP Lease" in the Repair Center.',
         affectedTests: ['gateway', 'internet', 'https']
       })
     } else {
@@ -139,8 +139,8 @@ export function analyzeDiagnostics(results: TestResultMap): Diagnosis[] {
       id: 'captive-portal',
       title: 'Captive Portal Detected',
       severity: 'warning',
-      explanation: 'This network requires sign-in through a web portal (common in hotels, airports, and public Wi-Fi). Internet access is blocked until you complete the sign-in process.',
-      recommendation: 'Open a web browser and navigate to any HTTP website. You should be redirected to the sign-in page. Complete the sign-in process to gain internet access.',
+      explanation: 'This network requires sign-in through a web portal (common in schools, universities, hotels, and public Wi-Fi). Internet access is blocked until you complete the sign-in process.',
+      recommendation: 'Open your browser to complete your school/campus login page, or click "Force Login Page" on the Dashboard.',
       affectedTests: ['captive-portal']
     })
   }

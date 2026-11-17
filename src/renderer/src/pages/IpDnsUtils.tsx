@@ -187,10 +187,7 @@ export default function IpDnsUtils() {
       {/* Public IP & Geo / PTR Info */}
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2">
-            <Globe size={16} className="text-accent" />
-            <CardTitle>Public IP &amp; Internet Endpoint</CardTitle>
-          </div>
+          <CardTitle>Public IP &amp; Internet Endpoint</CardTitle>
           <Button variant="secondary" size="sm" onClick={fetchPublicIp} loading={ipLoading}>
             <RefreshCw size={13} />
             Refresh Endpoint
@@ -236,14 +233,11 @@ export default function IpDnsUtils() {
       {/* DNS Lookup & Multi-Resolver Benchmark */}
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2">
-            <Server size={16} className="text-blue-400" />
-            <CardTitle>DNS Resolver Benchmark &amp; 1-Click Optimizer</CardTitle>
-          </div>
+          <CardTitle>DNS Resolver Benchmark</CardTitle>
           {dnsResult?.fastestProvider && (
             <div className="flex items-center gap-2">
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-accent/10 text-accent font-semibold flex items-center gap-1">
-                <Zap size={12} />
+              <span className="text-xs px-2 py-0.5 rounded bg-surface-800 text-surface-200 font-mono flex items-center gap-1.5 border border-white/[0.06]">
+                <Zap size={12} className="text-accent" />
                 Fastest: {dnsResult.fastestProvider} ({fastestTime}ms)
               </span>
               <Button
@@ -255,7 +249,7 @@ export default function IpDnsUtils() {
                 }}
                 loading={applyingDns !== null}
               >
-                ⚡ Apply Fastest DNS
+                Apply Fastest DNS
               </Button>
             </div>
           )}
@@ -329,7 +323,7 @@ export default function IpDnsUtils() {
                   className={cn(
                     'rounded-xl border p-4 transition-all',
                     isFastest
-                      ? 'border-accent/40 bg-accent/[0.03] shadow-sm shadow-accent/5'
+                      ? 'border-accent/30 bg-accent/[0.03]'
                       : 'border-white/[0.04] bg-surface-950/40'
                   )}
                 >
@@ -409,10 +403,7 @@ export default function IpDnsUtils() {
       {/* Local Subnet / LAN Discovery */}
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2">
-            <HardDrive size={16} className="text-purple-400" />
-            <CardTitle>Local Network Device Discovery ({devices.length} devices)</CardTitle>
-          </div>
+          <CardTitle>Local Network Device Discovery ({devices.length} devices)</CardTitle>
           <Button variant="secondary" size="sm" onClick={scanLan} loading={scanLoading}>
             <RefreshCw size={13} />
             Rescan Subnet
@@ -458,7 +449,7 @@ export default function IpDnsUtils() {
                     <td className="py-2.5 text-surface-300 font-mono truncate max-w-xs">{d.hostname || '—'}</td>
                     <td className="py-2.5 text-surface-400">{d.interfaceAlias}</td>
                     <td className="py-2.5 text-right pr-1">
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400">
                         {d.status}
                       </span>
                     </td>

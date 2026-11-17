@@ -92,7 +92,7 @@ export default function NetflixIntro({ onComplete }: NetflixIntroProps) {
           e.stopPropagation()
           finishIntro()
         }}
-        className="absolute bottom-7 right-8 text-xs font-semibold text-surface-400 hover:text-white px-3.5 py-1.5 rounded-full border border-white/[0.1] hover:border-white/[0.3] bg-surface-950/60 backdrop-blur-md transition-all tracking-wider uppercase z-20"
+        className="absolute bottom-7 right-8 text-xs font-semibold text-surface-400 hover:text-white px-3.5 py-1.5 rounded-lg border border-white/[0.1] hover:border-white/[0.3] bg-surface-950/60 backdrop-blur-md transition-all tracking-wider uppercase z-20"
       >
         Skip Intro (Esc)
       </button>

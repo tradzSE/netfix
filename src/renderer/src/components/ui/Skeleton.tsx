@@ -42,7 +42,7 @@ export function SkeletonCard({ lines = 3, className }: { lines?: number; classNa
     <div className={cn('glass-card rounded-xl p-5 space-y-3 relative overflow-hidden', className)}>
       <div className="flex items-center justify-between mb-2">
         <Skeleton className="h-4 w-32" />
-        <Skeleton className="h-4 w-12 rounded-full" />
+        <Skeleton className="h-4 w-12 rounded" />
       </div>
       {Array.from({ length: lines }).map((_, i) => (
         <div key={i} className="flex items-center justify-between py-1 border-b border-white/[0.02] last:border-0">

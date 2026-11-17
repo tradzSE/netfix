@@ -17,11 +17,10 @@ export default function Card({
   return (
     <div
       className={cn(
-        'rounded-xl transition-all duration-200 relative overflow-hidden',
-        // Glass variants
+        'rounded-xl transition-all duration-200 relative',
         variant === 'glass' && 'glass-card',
         variant === 'glow' && 'glass-card-glow',
-        variant === 'interactive' && 'glass-card hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/40 hover:border-accent/30 cursor-pointer',
+        variant === 'interactive' && 'glass-card hover:border-white/[0.16] cursor-pointer',
         variant === 'solid' && 'bg-surface-950/80 border border-white/[0.05]',
         // Padding
         padding === 'none' && 'p-0',
@@ -31,8 +30,6 @@ export default function Card({
         className
       )}
     >
-      {/* Subtle top-edge light reflection */}
-      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/[0.1] to-transparent pointer-events-none" />
       {children}
     </div>
   )
@@ -48,7 +45,7 @@ export function CardHeader({ children, className }: { children: ReactNode; class
 
 export function CardTitle({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <h3 className={cn('text-sm font-bold text-white tracking-tight flex items-center gap-2', className)}>
+    <h3 className={cn('text-sm font-semibold text-white tracking-tight', className)}>
       {children}
     </h3>
   )

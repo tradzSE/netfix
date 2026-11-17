@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Wrench, ShieldAlert, CheckCircle2, XCircle, AlertTriangle, RefreshCw, Zap, ArrowRight, ShieldCheck } from 'lucide-react'
+import { Wrench, ShieldAlert, CheckCircle2, XCircle, AlertTriangle, RefreshCw, Zap, ArrowRight, ShieldCheck, ExternalLink } from 'lucide-react'
 import Card, { CardHeader, CardTitle } from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import ConfirmModal from '../components/ui/ConfirmModal'
@@ -35,6 +35,25 @@ export default function RepairCenter() {
   const [activeModalOp, setActiveModalOp] = useState<RepairOperationDefinition | null>(null)
   const [executing, setExecuting] = useState(false)
   const [lastResult, setLastResult] = useState<RepairResult | null>(null)
+  const [captiveLoading, setCaptiveLoading] = useState(false)
+  const [captiveFeedback, setCaptiveFeedback] = useState<string | null>(null)
+
+  const handleForceCaptive = async () => {
+    setCaptiveLoading(true)
+    setCaptiveFeedback(null)
+    try {
+      const res = await window.netfix.tools.forceCaptivePortal()
+      if (res.success) {
+        setCaptiveFeedback('Captive probe dispatched to browser.')
+      } else {
+        setCaptiveFeedback('Probe sent. Check your default browser for login page.')
+      }
+    } catch (err) {
+      setCaptiveFeedback(`Error: ${(err as Error).message}`)
+    } finally {
+      setCaptiveLoading(false)
+    }
+  }
 
   useEffect(() => {
     // Fetch available repair operations
@@ -102,7 +121,7 @@ export default function RepairCenter() {
 
       {/* Safety Notice */}
       <div className="rounded-lg bg-surface-900/60 border border-white/[0.04] p-4 text-xs text-surface-400 flex items-start gap-3">
-        <ShieldCheck size={18} className="text-accent mt-0.5 flex-shrink-0" />
+        <ShieldCheck size={18} className="text-surface-400 mt-0.5 flex-shrink-0" />
         <div className="space-y-1">
           <p className="font-semibold text-surface-200">Safe &amp; Verified Repair Architecture</p>
           <p className="leading-relaxed">
@@ -110,6 +129,35 @@ export default function RepairCenter() {
             Disruptive and privileged operations require explicit user confirmation and trigger Windows Administrator UAC elevation.
             Every action undergoes automatic post-repair verification to verify connectivity was actually restored.
           </p>
+        </div>
+      </div>
+
+      {/* School & Public Wi-Fi Captive Helper */}
+      <div className="rounded-lg bg-surface-900/60 border border-white/[0.06] p-4 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="h-9 w-9 rounded-lg bg-surface-800 border border-white/[0.06] flex items-center justify-center text-surface-300">
+            <ExternalLink size={16} />
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold text-white">Campus &amp; School Wi-Fi Login Helper</h4>
+            <p className="text-xs text-surface-400 mt-0.5">
+              Connected with no internet at school? Force the browser login splash page to pop open.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          {captiveFeedback && (
+            <span className="text-xs text-surface-300 font-mono mr-2">{captiveFeedback}</span>
+          )}
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={handleForceCaptive}
+            loading={captiveLoading}
+          >
+            <ExternalLink size={13} />
+            Open School Login Page
+          </Button>
         </div>
       </div>
 
@@ -163,10 +211,7 @@ export default function RepairCenter() {
       {/* Standard User (Unprivileged) Repairs */}
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2">
-            <Zap size={16} className="text-accent" />
-            <CardTitle>Standard Operations (No Elevation Required)</CardTitle>
-          </div>
+          <CardTitle>Standard Operations (No Elevation Required)</CardTitle>
         </CardHeader>
         <div className="grid grid-cols-2 gap-4">
           {operations.filter(o => !o.isElevated).map((op) => (
@@ -192,10 +237,7 @@ export default function RepairCenter() {
       {/* Privileged & System Repairs (Requires UAC) */}
       <Card>
         <CardHeader>
-          <div className="flex items-center gap-2">
-            <ShieldAlert size={16} className="text-amber-400" />
-            <CardTitle>Privileged Repair Operations (Requires Windows UAC)</CardTitle>
-          </div>
+          <CardTitle>Privileged Operations (Requires Windows UAC)</CardTitle>
         </CardHeader>
         <div className="grid grid-cols-2 gap-4">
           {operations.filter(o => o.isElevated).map((op) => (

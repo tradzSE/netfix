@@ -29,19 +29,19 @@ function createTray(win: BrowserWindow): Tray {
       }
     },
     {
-      label: '⚡ Force Captive Portal Login',
+      label: 'Force Captive Portal Login',
       click: () => {
         forceCaptivePortal()
       }
     },
     {
-      label: '🛡️ Enable School Wi-Fi Shield (Public)',
+      label: 'Enable School Wi-Fi Shield (Public)',
       click: async () => {
         await executeRepair({ actionId: 'set-public-profile' })
       }
     },
     {
-      label: '🏡 Switch to Home Mode (Private)',
+      label: 'Switch to Home Mode (Private)',
       click: async () => {
         await executeRepair({ actionId: 'set-private-profile' })
       }

@@ -82,10 +82,7 @@ export default function NetworkInfo() {
           {/* Adapters */}
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Network size={16} className="text-accent" />
-                <CardTitle>Network Adapters</CardTitle>
-              </div>
+              <CardTitle>Network Adapters</CardTitle>
               <span className="text-xs text-surface-500">{data.adapters.length} adapter(s)</span>
             </CardHeader>
             <div className="overflow-x-auto">
@@ -117,10 +114,7 @@ export default function NetworkInfo() {
           {/* IP Configuration */}
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Globe size={16} className="text-blue-400" />
-                <CardTitle>IP Configuration</CardTitle>
-              </div>
+              <CardTitle>IP Configuration</CardTitle>
             </CardHeader>
             <div className="grid gap-4">
               {data.ipConfig.map((config) => (
@@ -158,10 +152,7 @@ export default function NetworkInfo() {
           {/* DNS Servers */}
           <Card>
             <CardHeader>
-              <div className="flex items-center gap-2">
-                <Server size={16} className="text-purple-400" />
-                <CardTitle>DNS Servers</CardTitle>
-              </div>
+              <CardTitle>DNS Servers</CardTitle>
             </CardHeader>
             <div className="space-y-3">
               {data.dnsServers.map((dns) => (
@@ -187,10 +178,7 @@ export default function NetworkInfo() {
           {data.wifiInfo.connected && (
             <Card>
               <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Wifi size={16} className="text-accent" />
-                  <CardTitle>Wi-Fi Connection Details</CardTitle>
-                </div>
+                <CardTitle>Wi-Fi Connection Details</CardTitle>
               </CardHeader>
               <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-xs">
                 {[
